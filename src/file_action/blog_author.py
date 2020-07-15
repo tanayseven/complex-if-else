@@ -32,9 +32,9 @@ def extract_details(html_files: List[Path]):
                 first_name = soup.find(id="first-name").text
                 middle_names = [tag.text for tag in soup.find_all(class_="middle-name")]
                 last_name = soup.find(id="last-name").text
-                if len(first_name) + len(middle_names) == 0 or last_name[0].islower():
+                if len(first_name) + sum([len(middle_name) for middle_name in middle_names]) == 0 or last_name[0].islower():
                     failure_cases.append(file)
-                elif len(name_prefixes) == 0:
+                elif sum([len(name_prefix) for name_prefix in name_prefixes]) == 0:
                     failure_cases.append(file)
                 else:
                     catenated_name_prefixes = ""
